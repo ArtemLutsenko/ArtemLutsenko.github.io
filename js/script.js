@@ -9,7 +9,7 @@ let fileText = null;
 input.addEventListener("change", e => {
     const reader = new FileReader();
     fileName = input.files[0].name
-    if(checkingCorrectFile(fileName)){
+    if(isJsFile(fileName)){
     uploadFileText.innerText = fileName;
 
     reader.onload = () => {
@@ -32,7 +32,7 @@ saveLink.addEventListener('click', ()=>{
   if(!fileName){
     alert('There is nothing to save')
   }else{
-    download();
+    saveToFile();
   }
 
 })
@@ -43,13 +43,13 @@ function remoteComments(file) {
   return stringWithoutComments;
 }
 
-function download() {
+function saveToFile() {
   let file = new Blob([fileText], {type: "text/plain;charset=utf-8"});
   saveLink.href = URL.createObjectURL(file);
   saveLink.download = fileName;
 }
 
-function checkingCorrectFile(fileName){
+function isJsFile(fileName){
  let splitedFilename = fileName.split('.')
  if(splitedFilename[splitedFilename.length - 1] === 'js'){
    return true
@@ -57,9 +57,7 @@ function checkingCorrectFile(fileName){
    alert ('This programm working only with JS files')
    return false
  }
-
 }
 
-console.log(input);
 
 
